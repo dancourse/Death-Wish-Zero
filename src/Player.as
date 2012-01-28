@@ -32,6 +32,7 @@ package
 		private var gravity:Number = 0.9;
 		
 		private var health:int = 100;
+		private var playerSize:int = 30;
 		
 		// PLAYER_STATE
 		private var STATE:int = 0; // 0=WALKING , 1= JUMPING
@@ -42,7 +43,7 @@ package
 			
 			// sets starting point
 			//setHitbox(graphic.x,graphic.y);
-			setHitbox(60, 60);
+			setHitbox(playerSize, playerSize);
 			this.x = x;
 			this.y = y;
 			

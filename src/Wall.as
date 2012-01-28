@@ -14,7 +14,7 @@ package
 		public function Wall(posX:int,posY:int) 
 		{
 			graphic = new Image(WALL);
-			setHitbox(32,32);
+			setHitbox(30,30);
 			type="wall"; 
 			x=posX;
 			y=posY;	

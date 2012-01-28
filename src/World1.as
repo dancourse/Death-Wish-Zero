@@ -15,7 +15,7 @@ package
 		var player:Player = new Player(700, 300);
 		var cameraPlatform:CameraPlatform = new CameraPlatform(player);
 		
-		var level_blockSize = 60; // the pixel size of a block
+		var level_blockSize = 32; // the pixel size of a block
 		var level_width:int = 40; // the level width from the .eol
 		
 		private var backdrop:Backdrop;
@@ -100,14 +100,13 @@ package
 					// add a wall
 					if (levelSolids[i] == 1) add(new Wall(i_col * level_blockSize, i_row * level_blockSize));
 					
-					if (levelSolids[i] == 2) add(new HealthItem(i_col * level_blockSize, i_row * level_blockSize));
-					if (levelSolids[i]==3) add(new Wall(i_col * level_blockSize, i_row * level_blockSize));
+					
 					
 					// inc
 					i_col++;
 				}
 			
-			return;	
+			
 				
 			/*
 			 * LEVEL OBJECTS
@@ -124,37 +123,27 @@ package
 				
 				for (var s:String in objectsList)
 				{
+					
 					var objectElement:XML = XML(String(objectsList[s]));
+					
 					trace(objectElement);
 				}
-				
-				return;
-				
-				for each (var item:XML in myList) 
-				{ 
-					trace('*'+item+'*');
-				}
-				
-				return;
-				
-				trace("XML Output");
-				trace("------------------------");
 				 
-				for (var s:String in levelXML.objects.health) 
-				{ 
-					trace( levelXML.objects.health[s]); 
-				}
-								
-				return;
 				
-				for each(var healthElement:XML in levelXML.objects.health)
+								
+				
+				
+				for each(var helem:XML in levelXML.objects.health)
 				{
+					add(new HealthItem(int(helem.@x),int(helem.@y)))
 					
-					add(new HealthItem(62, 62))
-					
-					trace('*'+healthElement)
 				}
 			
+				for each(var spikes:XML in levelXML.objects.spikes)
+				{
+					add(new Spikes(int(spikes.@x)* level_blockSize, int(spikes.@y)* level_blockSize, int(spikes.@spiketime)));
+				}
+				
 				
 		}
 		
