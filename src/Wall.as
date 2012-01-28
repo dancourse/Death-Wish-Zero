@@ -9,7 +9,7 @@ package
 	 */
 	public class Wall extends MyEntity 
 	{
-		[Embed(source = 'assets/player.png')] private const WALL:Class;
+		[Embed(source = 'assets/tile_solid.jpg')] private const WALL:Class;
 		
 		public function Wall(posX:int,posY:int) 
 		{

@@ -1,6 +1,7 @@
 package  
 {
 	import net.flashpunk.World;
+	import net.flashpunk.FP;
 	
 	/**
 	 * ...
@@ -8,7 +9,7 @@ package
 	 */
 	public class World1 extends World 
 	{
-		var player:Player = new Player(150, 50);
+		var player:Player = new Player(FP.halfWidth,100);
 		var cameraPlatform:CameraPlatform = new CameraPlatform(player);
 		
 		public function World1() 
