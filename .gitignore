@@ -1,6 +1,6 @@
 bin/*
 obj/QuickDeathConfig.old
-
+obj/QuickDeathConfig.xml
 
 bin/*
 *.swf
