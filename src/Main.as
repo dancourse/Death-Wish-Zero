@@ -16,7 +16,7 @@ package
 		{
 		
 			super(800, 600, 60, false);
-			FP.world = new World1;
+			FP.world = new GameWorld;//new World1;
 		}
 		
 		//function used to initialise the game. Called once at the beginning

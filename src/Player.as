@@ -63,6 +63,17 @@ package
 					this.setHealth(health - 10);
 			}
 			
+			
+			var hi:HealthItem = collide("health_item", this.x, this.y) as HealthItem
+			
+			if (hi) {
+				trace("HEALTH");
+				if (health < 50) this.setHealth(health + 50);
+				else this.setHealth(100);
+				hi.remove();
+			}
+			
+			
 		}
 		
 		
@@ -108,7 +119,7 @@ package
 			
 			//Respawn the player on the top if it falls.
 			
-			if (this.y > 1000) this.y = -250;
+			if (this.y > 10000) this.y = -250;
 			
 		}
 		

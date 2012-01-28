@@ -35,7 +35,7 @@ package
 		
 		override public function update():void
 		{
-			trace("play Y:" + player.y + "  Cam Y:" + FP.camera.y);
+			
 			
 			if (Math.abs(player.x - FP.camera.x) > cameraOffsetX*(n-1) - player.width)
 			{
