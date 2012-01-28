@@ -18,7 +18,7 @@ package
 		public function Spikes(posX:int,posY:int,time:int = 3) 
 		{
 			graphic = new Image(TILE);
-			setHitbox(graphic.x,graphic.y);
+			setHitbox(32,32);
 			type="spikes"; 
 			x=posX;
 			y = posY;	

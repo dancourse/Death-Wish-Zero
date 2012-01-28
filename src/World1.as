@@ -31,15 +31,10 @@ package
 			
 			add(player);
 			
+			
 			level_init(1)
 			
-			
-			/*
-			for (var i:int = 0; i < 40;i++ )
-			{
-				add(new Wall(i * 32, 200));
-			}
-			*/
+			add(player.healthBar);
 		}
 		
 		/*
@@ -135,13 +130,13 @@ package
 				
 				for each(var helem:XML in levelXML.objects.health)
 				{
-					add(new HealthItem(int(helem.@x),int(helem.@y)))
+					add(new HealthItem(int(helem.@x)*2,int(helem.@y)*2))
 					
 				}
 			
 				for each(var spikes:XML in levelXML.objects.spikes)
 				{
-					add(new Spikes(int(spikes.@x)* level_blockSize, int(spikes.@y)* level_blockSize, int(spikes.@spiketime)));
+					add(new Spikes(int(spikes.@x)* 2, int(spikes.@y)* 2, int(spikes.@spiketime)));
 				}
 				
 				

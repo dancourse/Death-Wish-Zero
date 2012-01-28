@@ -12,10 +12,12 @@ package
 		public function HealthItem(x:int, y:int) 
 		{
 			graphic = new Image(TILE);
-			setHitbox(graphic.x,graphic.y);
+			setHitbox(32,32);
+			trace(graphic.x + " " + graphic.y);
 			type="health_item"; 
 			this.x=x;
 			this.y = y;	
+			
 		}
 		
 		public function remove():void

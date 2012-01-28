@@ -3,6 +3,7 @@ package
 	
 	import flash.geom.Point;
 	import net.flashpunk.Entity;
+	import net.flashpunk.graphics.Text;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import net.flashpunk.graphics.Image;
@@ -37,6 +38,9 @@ package
 		// PLAYER_STATE
 		private var STATE:int = 0; // 0=WALKING , 1= JUMPING
 		
+		// HEALTY BAR in a wrong place but works
+		public var healthBar:Entity = new Entity(); 
+		
 		public function Player(x:int, y:int) 
 		{
 			graphic = new Image(PLAYER);
@@ -52,6 +56,11 @@ package
 			Input.define("moveLeft", Key.LEFT, Key.A);
 			Input.define("moveRight", Key.RIGHT, Key.D);
 			
+			Text.size = 20;
+			healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+			healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
+			
+			
 		}
 		
 		public function checkObjectCollisions():void
@@ -62,6 +71,8 @@ package
 			if (sp && sp.getState()==1) {
 				
 					this.setHealth(health - 10);
+					healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+					healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
 			}
 			
 			
@@ -71,6 +82,10 @@ package
 				trace("HEALTH");
 				if (health < 50) this.setHealth(health + 50);
 				else this.setHealth(100);
+				
+				healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+				healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
+				
 				hi.remove();
 			}
 			
