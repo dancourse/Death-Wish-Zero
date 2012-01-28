@@ -12,14 +12,15 @@ package
 	 */
 	public class MyEntity extends Entity 
 	{
-		[Embed(source = 'assets/player.png')] private const PLAYER:Class;
+		[Embed(source = 'assets/player.png')] private const TILE:Class;
 		
 		
 		
 		
 		public function MyEntity() 
 		{
-			graphic = new Image(PLAYER);
+			graphic = new Image(TILE);
+			
 		}
 		
 		

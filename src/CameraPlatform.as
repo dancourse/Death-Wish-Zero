@@ -14,20 +14,40 @@ package
 	{
 		var player:Player;
 		
-		var cameraOffsetX:Number;  
+		var n:int = 7
+		var cameraOffsetX:Number = FP.width/7; 
+		
 		var cameraOffsetY:Number;
+		
+		var cameraSpeed:Number = 5; //SAME AS PLAYER SPEED
 		
 		
 		public function CameraPlatform(player:Player) 
 		{
 			this.player = player;
+			//cameraSpeed = player.speed;
+			
+			
+			
 		}
 		
 		override public function update():void
 		{
-			FP.camera.x = (player.getPosition().x + player.halfWidth) - FP.width/2;
+	
+			
+			if (Math.abs(player.x - FP.camera.x) > cameraOffsetX*(n-1) - player.width)
+			{
+				 FP.camera.x += cameraSpeed;
+			}
+			if (Math.abs( player.x - FP.camera.x) < cameraOffsetX )
+			{
+				FP.camera.x -= cameraSpeed;
+			}
+			
+			
+			
 			FP.camera.y = (player.getPosition().y + player.halfHeight) - FP.height / 2;
-			trace(player.width / 2 + " " + player.height / 2);
+			
 		}
 		
 		

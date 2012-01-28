@@ -8,7 +8,7 @@ package
 	 */
 	public class World1 extends World 
 	{
-		var player:Player = new Player;
+		var player:Player = new Player(150, 50);
 		var cameraPlatform:CameraPlatform = new CameraPlatform(player);
 		
 		public function World1() 
@@ -16,15 +16,12 @@ package
 			super();
 			
 			add(player);
-			player.setPosition(150, 150);
 			
 			
-			for (var i:int = 0; i < 10; i++)
+			
+			for (var i:int = 0; i < 40;i++ )
 			{
-				var ent:MyEntity = new MyEntity;
-				ent.setPosition(200 * Number(i), 0);
-				add(ent);
-				
+				add(new Wall(i * 32, 200));
 			}
 		}
 		
