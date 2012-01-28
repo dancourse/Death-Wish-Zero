@@ -2,6 +2,6 @@ bin/*
 obj/QuickDeathConfig.old
 obj/QuickDeathConfig.xml
 
-bin/*
+bin/js/*
 *.swf
 *.fla
