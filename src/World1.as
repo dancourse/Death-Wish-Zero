@@ -12,8 +12,8 @@ package
 	 */
 	public class World1 extends World 
 	{
-		var player:Player = new Player(700, 300);
-		var cameraPlatform:CameraPlatform = new CameraPlatform(player);
+		var player:Player =new Player(700, 300); 
+		var cameraPlatform:CameraPlatform; 
 		
 		var level_blockSize = 32; // the pixel size of a block
 		var level_width:int = 40; // the level width from the .eol
@@ -28,12 +28,13 @@ package
 			
 			backdrop = new Backdrop(BACKGROUNDSHEET, true, true);
 			add(new MyBackground(backdrop));
-			
-			add(player);
+		
 			
 			
 			level_init(1)
 			
+			add(player);
+			cameraPlatform = new CameraPlatform(player);
 			add(player.healthBar);
 		}
 		
@@ -121,10 +122,16 @@ package
 					
 					var objectElement:XML = XML(String(objectsList[s]));
 					
-					trace(objectElement);
+					
 				}
 				 
 				
+				
+				
+				for each(var start:XML in levelXML.objects.start)
+				{
+				player.setPosition(int(start.@x), int(start.@y));
+				}
 								
 				
 				

@@ -52,8 +52,9 @@ package
 		 * Privates Vars
 		 */
 	
-		public var power:Number=5;
-		private var jumpPower:Number=15;
+		public var power:Number=7;
+		private var jumpPower:Number = 20;
+		
 		private var hFriction:Number=0.95;
 		private var vFriction:Number=0.99;
 		private var xSpeed:Number=0;
@@ -139,7 +140,8 @@ package
 		protected function stateMachine(nextState:int,dir:Boolean):void
 		{
 			
-			trace("Next:"+nextState+"  State:" + STATE + "  dir:" + dir);
+			//trace("Next:"+nextState+"  State:" + STATE + "  dir:" + dir);
+			
 			// TO running
 			if (nextState == 0)
 			{	
@@ -148,8 +150,7 @@ package
 				{
 					graphic = std_left;
 					std_left.play("std_left");
-					STATE = 0;
-					trace("running fermo sx");
+					STATE = 1;
 				}
 				if (STATE == 2 && dir == true || STATE == 0 && dir == true)
 				{
@@ -161,7 +162,7 @@ package
 				{
 					graphic = std_right;
 					std_right.play("std_right");
-					STATE = 0;
+					STATE = 1;
 				}
 				if (STATE == 2 && dir == false || STATE == 0 && dir == false)
 				{
@@ -184,6 +185,16 @@ package
 				{
 					graphic = jmp_right;
 					jmp_right.play("jmp_right");
+				}
+				if (STATE == 1 && dir == true)
+				{
+					graphic = std_left;
+					std_left.play("std_left");
+				}
+				if (STATE == 1 && dir == false)
+				{
+					graphic = std_right;
+					std_right.play("std_right");
 				}
 				STATE = 1;
 			}
@@ -284,7 +295,10 @@ package
 			
 			//Respawn the player on the top if it falls.
 			
-			if (this.y > 10000) this.y = -250;
+			if (this.y > 5000) {
+				this.y = -1050;
+				ySpeed = 0;
+			}
 			
 		}
 		
