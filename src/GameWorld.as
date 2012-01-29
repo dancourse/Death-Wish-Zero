@@ -25,6 +25,9 @@ package
 		
 		[Embed(source = "/../src/assets/menu_background.png")]
 		private const BACKGROUNDSHEET:Class;
+		
+		[Embed(source = "/../src/assets/allexit.png")]
+		private const WINLOSE:Class;
 
 		
 		private var sheetArray:Array

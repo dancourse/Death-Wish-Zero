@@ -6,6 +6,8 @@ package
 	import flash.xml.*;
 		import net.flashpunk.graphics.Backdrop;
 	
+	import net.flashpunk.FP;	
+		
 	/**
 	 * ...
 	 * @author giulio
@@ -189,8 +191,6 @@ package
 			
 		}
 		
-		
-		
 		override public function update():void
 		{
 			super.update();
@@ -200,7 +200,6 @@ package
 			if (TimerBar(player.timerBar).countDownAt <= 0)
 			{
 				this.game_over(false);
-				
 				
 			}
 		}
