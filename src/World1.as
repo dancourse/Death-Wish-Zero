@@ -104,6 +104,8 @@ package
 				var levelObjects:Array = new Array();
 				
 				// get the OBJECTS
+				var XML_pretend:XML = XML('<objects><start id="0" x="224" y="176" /><health id="1" x="256" y="208" /><health id="2" x="304" y="224" /><health id="3" x="352" y="256" /><health id="4" x="416" y="272" /><spikes id="5" x="272" y="208" /><spikes id="6" x="320" y="224" /><spikes id="7" x="368" y="256" /><spikes id="8" x="400" y="272" /><spikes id="9" x="480" y="288" /><spikes id="10" x="496" y="288" /><spikes id="11" x="512" y="288" /><spikes id="12" x="528" y="288" /><health id="13" x="560" y="272" /><health id="14" x="480" y="160" /><health id="15" x="512" y="80" /></objects>');
+				
 				
 				// Splits the XML on newline
 				var objectsList:Array = String(levelXML.objects.children()).split("\n");
