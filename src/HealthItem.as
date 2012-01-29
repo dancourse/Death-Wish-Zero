@@ -22,6 +22,8 @@ package
 		
 		public function remove():void
 		{
+			graphic = null;
+				world.remove(this);
 			
 		}
 		

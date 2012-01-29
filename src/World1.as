@@ -22,7 +22,7 @@ package
 		[Embed(source = "/../src/assets/backdrop.png")]
 		private const BACKGROUNDSHEET:Class;
 		
-		public function World1(difficulty:int) 
+		public function World1(difficulty:int, levelnumber:int = 1 ) 
 		{
 			super();
 			
@@ -65,19 +65,26 @@ package
 			 * LEVEL SOLID TILES
 			 * */
 				var levelSolids_dirty:Array = new Array();
+				var level_sticky:Array = new Array();
 				
 				// TURN BITSTRING INTO ARRAY
 				levelSolids_dirty = String(levelXML.solids).split("");
+				level_sticky = String(levelXML.stickyblock).split("");
 				
 				// clean out whitespace
 				var l:int = levelSolids_dirty.length;
 				var levelSolids:Array = new Array();
+				var levelSticky:Array = new Array();
 				for (var i:int = 0; i < l; i++)
 				{
 					var curLevel:String = levelSolids_dirty[i];
+					var curSticky:String = level_sticky[i];
 					
 					// only accept slevel blocks
-					if (curLevel=="0" || curLevel=="1" || curLevel=="2" || curLevel=="3" ) levelSolids.push(levelSolids_dirty[i]);
+					if (curLevel == "0" || curLevel == "1" || curLevel == "2" || curLevel == "3" ) {
+						levelSolids.push(levelSolids_dirty[i]);
+						levelSticky.push(level_sticky[i]);
+						}
 				}
 				
 				// put onto stage
@@ -95,6 +102,7 @@ package
 					
 					// add a wall
 					if (levelSolids[i] == 1) add(new Wall(i_col * level_blockSize, i_row * level_blockSize));
+					if (levelSticky[i] == 1) add(new StickyWall(i_col * level_blockSize, i_row * level_blockSize));
 					
 					
 					

@@ -105,9 +105,10 @@ package
 			//addGraphic(new Image(BUTTONSHEET), 0, 50, 50)
 		}
 		
+		
 		private function PlayEasy():void
 		{
-			FP.world = new World1(1);
+			FP.world = new LevelGameWorld(1);//new World1(1);
 			/*
 			FP.screen.color = Math.random() * 0xFFFFFF;
 			
@@ -115,11 +116,11 @@ package
 		}
 		private function PlayMedium():void
 		{
-			FP.world = new World1(2);
+			FP.world = new LevelGameWorld(2);//new World1(2);
 		}
 		private function PlayHard():void
 		{
-			FP.world = new World1(3);
+			FP.world = new LevelGameWorld(3);//new World1(3);
 		}
 		
 		private function PlayCredit():void

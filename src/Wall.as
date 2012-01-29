@@ -9,6 +9,8 @@ package
 	 */
 	public class Wall extends MyEntity 
 	{
+		public static var friction:Number = 1;
+		
 		[Embed(source = 'assets/tile_solid.jpg')] private const WALL:Class;
 		
 		public function Wall(posX:int,posY:int) 

@@ -62,6 +62,17 @@ package
 			setHitbox(frameW, frameH);
 		}
 		
+		public function setSprite(asset:*, frameW:uint, frameH:uint):void
+		{
+			_map = new Spritemap(asset, frameW, frameH);
+			
+			_map.add("Down", [0]);
+			
+			graphic = _map;
+			
+			setHitbox(frameW, frameH);
+		}
+		
 		protected function mouseOver():void
 		{
 			_over = true;

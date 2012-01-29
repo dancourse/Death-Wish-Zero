@@ -11,7 +11,7 @@ package
 	import net.flashpunk.FP;
 	
 	import Spikes;
-
+	import StickyWall;
 	
 	/**
 	 * ...
@@ -102,6 +102,9 @@ package
 			
 			run_left.add("run_left", [0,1,2,3,4], 20, true);
 			run_right.add("run_right", [0,1,2,3,4], 20, true);
+			
+		
+		
 			
 			graphic = std_right;
 			
@@ -254,7 +257,7 @@ package
 			}
 				
 				
-			if (collide("wall", x, y + 1)) 
+			if (collide("wall", x, y + 1) || collide("stickywall", x, y + 1) ) 
 			{
 				ySpeed = 0;
 				if (Input.check("Jump") && STATE != 1) 
@@ -275,8 +278,11 @@ package
 			}
 				
 				
-				//if (collide("wall", x, y + 1) && STATE == 1) stateMachine(2, dir);
-				
+				if (collide("stickywall", x,y+1))
+				{
+					trace("collides");
+					xSpeed = xSpeed * StickyWall.friction;
+				}
 				
 			if (Math.abs(xSpeed)<1&& STATE==0) {
 				xSpeed=0;
@@ -315,7 +321,7 @@ package
 		
 		private function setXPosition():void {
 			for (var i:int=0; i<Math.abs(xSpeed); i++) {
-				if (! collide("wall",x+FP.sign(xSpeed),y)) {
+				if (! collide("wall",x+FP.sign(xSpeed),y) && !collide("stickywall", x+FP.sign(xSpeed),y)) {
 					x += FP.sign(xSpeed);
 				} else {
 					xSpeed=0;
@@ -325,7 +331,7 @@ package
 		}
 		private function setYPosition():void {
 			for (var i:int=0; i<Math.abs(ySpeed); i++) {
-				if (! collide("wall",x,y+FP.sign(ySpeed))) {
+				if (! collide("wall",x,y+FP.sign(ySpeed)) && !collide("stickywall",x,y+FP.sign(ySpeed))) {
 					y+=FP.sign(ySpeed);
 				} else {
 					ySpeed=0;
