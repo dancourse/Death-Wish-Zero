@@ -69,6 +69,8 @@ package
 		
 		// HEALTY BAR in a wrong place but works
 		public var healthBar:Entity = new Entity(); 
+		public var timerBar:TimerBar = new TimerBar(0,0); 
+
 		
 		public function Player(x:int, y:int) 
 		{
@@ -106,6 +108,13 @@ package
 			graphic = std_right;
 			
 			
+		}
+		
+		// sets the level time
+		public function setTime (time:int):void
+		{			
+			// TIMER
+			timerBar.startCounting(time);
 		}
 		
 		public function checkObjectCollisions():void
@@ -287,6 +296,9 @@ package
 			// Check collision with other objects.
 			checkObjectCollisions();
 			
+			// timer update
+			timerBar.graphic = new Text(String(this.timerBar.countDownAt), 700, 140, 100, 50);
+			timerBar.graphic.scrollX = timerBar.graphic.scrollY = 0;
 			
 			// Change Position
 			if (Input.check("moveRight") || Input.check("moveLeft")) setXPosition();

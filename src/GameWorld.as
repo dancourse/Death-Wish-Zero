@@ -25,6 +25,7 @@ package
 		
 		[Embed(source = "/../src/assets/menu_background.png")]
 		private const BACKGROUNDSHEET:Class;
+
 		
 		private var sheetArray:Array
 

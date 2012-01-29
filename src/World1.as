@@ -15,8 +15,16 @@ package
 		var player:Player =new Player(700, 300); 
 		var cameraPlatform:CameraPlatform; 
 		
+		// Block stuff
 		var level_blockSize = 32; // the pixel size of a block
 		var level_width:int = 40; // the level width from the .eol
+		
+		// Timing stuff
+		// 0 = easy
+		// 1 = medium
+		// 2 = hard
+		var timing_all:Array = new Array(30, 20, 10);
+		
 		
 		private var backdrop:Backdrop;
 		[Embed(source = "/../src/assets/backdrop.png")]
@@ -30,13 +38,38 @@ package
 			add(new MyBackground(backdrop));
 		
 			
-			
-			level_init(1)
+			// draw the blocks
+			level_init(1);
 			
 			add(player);
+			
+			// add the timer bar
 			cameraPlatform = new CameraPlatform(player);
 			add(player.healthBar);
+			add(player.timerBar);
+			
+			player.setTime(this.timing_all[difficulty - 1]);
+
 		}
+		
+		public function game_over (isWin:Boolean):void
+		{
+			trace('GAME OVER:: win = ' + isWin);
+			
+		}
+		
+		/**
+		 * Score functions
+		 */
+		public function score_init (diff:int):void
+		{
+			// add the swf to the stage
+			
+			
+			
+			
+		}
+		 
 		
 		/*
 		* Level functions
@@ -162,6 +195,14 @@ package
 		{
 			super.update();
 			cameraPlatform.update();
+			
+			// TIME OUT!?
+			if (TimerBar(player.timerBar).countDownAt <= 0)
+			{
+				this.game_over(false);
+				
+				
+			}
 		}
 	}
 
