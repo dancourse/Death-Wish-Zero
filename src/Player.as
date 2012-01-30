@@ -10,6 +10,13 @@ package
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.FP;
 	
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
+	
 	import Spikes;
 	import StickyWall;
 	
@@ -62,13 +69,26 @@ package
 		private var gravity:Number = 0.9;
 		var dir:Boolean = false;
 		private var health:int = 100;
-		private var playerSize:int = 30;
+		private var playerSize:int = 32;
+		
+		private var jumpSound:Sound = new Sound(new URLRequest("../src/assets/jump.mp3"));
+		private var deathSound:Sound = new Sound(new URLRequest("../src/assets/death.mp3"));
+		private var damageSound:Sound = new Sound(new URLRequest("../src/assets/damage.mp3"));
 		
 		// PLAYER_STATE
 		private var STATE:int = 0; // 0=WALKING , 1= AIR, 2= STANDING
 		
 		// HEALTY BAR in a wrong place but works
-		public var healthBar:Entity = new Entity(); 
+		public var healthBar:HealthBar = new HealthBar(200,50); 
+		
+		public var timerBar:TimerBar = new TimerBar(650,50); 
+		
+		// sets the level time
+		public function setTime (time:int):void
+		{			
+			// TIMER
+			timerBar.startCounting(time);
+		}
 		
 		public function Player(x:int, y:int) 
 		{
@@ -83,14 +103,22 @@ package
 			this.width = 64;
 			this.height = 64;
 			
+			
 			Input.define("Jump", Key.Z, Key.UP,Key.W);
 			Input.define("Shoot", Key.SPACE, Key.X, Key.C);
 			Input.define("moveLeft", Key.LEFT, Key.A);
 			Input.define("moveRight", Key.RIGHT, Key.D);
 			
 			Text.size = 20;
-			healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+			//healthBar.graphic = new Text("LIFE: "+String(health), 650, 50, 100, 50);
+			healthBar = new HealthBar(550, 50);
 			healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
+			
+			
+			
+			timerBar.graphic  = new Text("IM _HERE");
+			timerBar.graphic.scrollX = timerBar.graphic.scrollY = 0;
+
 			
 			// ANIMATIONS
 			
@@ -111,28 +139,39 @@ package
 			
 		}
 		
+		
+		
+		
 		public function checkObjectCollisions():void
 		{
 			
-			var sp:Spikes =  collide("spikes", this.x, this.y) as Spikes;
 			
-			if (sp && sp.getState()==1) {
+			var sp:Spikes = collide("spikes", this.x, this.y) as Spikes
+			
+			if ( sp && sp.getState()==1) {
 				
+					damageSound.play();
 					this.setHealth(health - 10);
-					healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+					//healthBar.graphic = new Text("LIFE: "+String(health), 650, 50, 100, 50);
+					//healthBar = new HealthBar(550, 50);
+					healthBar.update2(health);
 					healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
+					sp.changeState(1);
+					trace("Spike collinding" + STATE);
 			}
 			
 			
 			var hi:HealthItem = collide("health_item", this.x, this.y) as HealthItem
 			
 			if (hi) {
-				if (health < 50) this.setHealth(health + 50);
-				else this.setHealth(100);
+				 this.setHealth(health + 50);
+				damageSound.play();
 				
-				healthBar.graphic = new Text(String(health), 700, 50, 100, 50);
+				//healthBar.update();
+				//healthBar.graphic = new Text("LIFE: "+String(health), 650, 50, 100, 50);
+				//healthBar = new HealthBar(550, 50);
+				healthBar.update2(health);
 				healthBar.graphic.scrollX = healthBar.graphic.scrollY = 0;
-				
 				hi.remove();
 			}
 			
@@ -183,11 +222,13 @@ package
 				{
 					graphic = jmp_left;
 					jmp_left.play("jmp_left");
+					jumpSound.play();
 				}
 				if (STATE == 0 && dir == false || STATE == 2 && dir == false)
 				{
 					graphic = jmp_right;
 					jmp_right.play("jmp_right");
+					jumpSound.play();
 				}
 				if (STATE == 1 && dir == true)
 				{
@@ -280,7 +321,7 @@ package
 				
 				if (collide("stickywall", x,y+1))
 				{
-					trace("collides");
+					
 					xSpeed = xSpeed * StickyWall.friction;
 				}
 				
@@ -293,6 +334,9 @@ package
 			// Check collision with other objects.
 			checkObjectCollisions();
 			
+			// timer update
+			timerBar.graphic = new Text(String(this.timerBar.countDownAt), 650, 140, 100, 50);
+			timerBar.graphic.scrollX = timerBar.graphic.scrollY = 0;
 			
 			// Change Position
 			if (Input.check("moveRight") || Input.check("moveLeft")) setXPosition();
@@ -324,6 +368,7 @@ package
 				if (! collide("wall",x+FP.sign(xSpeed),y) && !collide("stickywall", x+FP.sign(xSpeed),y)) {
 					x += FP.sign(xSpeed);
 				} else {
+					trace("CANT MOVE");
 					xSpeed=0;
 					break;
 				}

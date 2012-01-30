@@ -11,7 +11,7 @@ package
 	{
 		public static var friction:Number = 0.5;
 		
-		[Embed(source ='assets/tile_health.jpg')] private const STICKYWALL:Class;
+		[Embed(source ='assets/sticky_block.png')] private const STICKYWALL:Class;
 		
 		public function StickyWall(posX:int,posY:int) 
 		{

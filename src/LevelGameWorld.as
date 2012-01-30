@@ -7,6 +7,7 @@ package
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.World;
 	import flash.text.TextField;
+		import net.flashpunk.graphics.Backdrop;
 	
 	public class LevelGameWorld extends World
 	{
@@ -22,6 +23,8 @@ package
 		private var levelNumber:int = 1;
 		private var levelText:Entity;
 
+		// NUMBER OF LEVELS
+		public var numberOfLevels = 4;
 		
 		
 		[Embed(source = "/assets/ok.png")]
@@ -33,10 +36,16 @@ package
 		[Embed(source = "/assets/down_arrow.png")]
 		private const DOWNBUTTON:Class;
 		
+			private var backdrop:Backdrop;
+		[Embed(source = "/../src/assets/backdrop.png")]
+		private const BACKGROUNDSHEET:Class;
+		
 		public function LevelGameWorld(difficulty:int)
 		{
+		
 			
-			
+			backdrop = new Backdrop(BACKGROUNDSHEET, true, true);
+			add(new MyBackground(backdrop));
 			text = new CreateText("Enter a number to choose a level, min 1 max 20");
 			
 			dif = difficulty;
@@ -84,23 +93,28 @@ package
 		
 		private function upClicked():void
 		{
-			levelNumber++;
+			if (levelNumber > 1)
+			{
+			levelNumber--;
 			remove(levelText);
 			levelText = new CreateText(levelNumber.toString());
 			levelText.x = 400;
 			levelText.y = 300;
 			add(levelText);
+			}
 		}
 		
 		private function downClicked():void
 		{
-			levelNumber++;
+			if (levelNumber < numberOfLevels)
+			{levelNumber++;
 			remove(levelText);
 			levelText = new CreateText(levelNumber.toString());
 			levelText.x = 400;
 			levelText.y = 300;
 			add(levelText);
-		}
+			}
+			}
 		
 		override public function update():void
 		{

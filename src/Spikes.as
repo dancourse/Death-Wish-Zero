@@ -7,23 +7,26 @@ package
 	 */
 	public class Spikes extends MyEntity 
 	{
-		[Embed(source = 'assets/spikes.png')] private const TILE:Class;
+		[Embed(source = 'assets/spikes_out.png')] private const TILE_OFF:Class;
+		[Embed(source = 'assets/spikes_in.png')] private const TILE_ON:Class;
 		
-		
-		private var STATE:int = 0;
+		private var STATE:int = 0; // 0=CLOSE  1=OPEN
 		private var timecycle:int = 3; //just a placeholder
 		private var cycle:int = timecycle;
+		private var framerate:int = 60;
 		
 		
 		public function Spikes(posX:int,posY:int,time:int = 3) 
 		{
-			graphic = new Image(TILE);
+			graphic = new Image(TILE_OFF);
+			graphic.y += 32;
+			
 			setHitbox(32,32);
 			type="spikes"; 
 			x=posX;
 			y = posY;	
-			timecycle = time;
-			cycle = 3;
+			timecycle = time*framerate;
+			cycle = time*framerate;
 		}
 		
 		override public function update():void
@@ -34,8 +37,8 @@ package
 			
 			if (cycle < 0)
 			{
-				cycle = timecycle;
-				changeState();
+				
+				changeState(STATE);
 			}
 			
 			
@@ -47,17 +50,22 @@ package
 			return STATE;
 		}
 		
-		protected function changeState():void
+		public function changeState(STATE:int):void
 		{
+			
 			if (STATE == 0)
 			{
-				
-				STATE = 1;
+				cycle = timecycle;
+				graphic = new Image(TILE_ON)
+				graphic.y += 32;
+				this.STATE = 1;
 			}
-			else
+			else 
 			{
-				
-				STATE = 0;
+				cycle = timecycle;
+				graphic = new Image(TILE_OFF)
+				graphic.y += 32;
+				this.STATE = 0;
 			}
 		}
 		

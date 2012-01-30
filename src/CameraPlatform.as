@@ -17,9 +17,9 @@ package
 		var player:Player;
 		
 		var n:int = 7
-		var cameraOffsetX:Number = FP.width/7; 
+		var cameraOffsetX:Number = FP.width/9; 
 		
-		var cameraOffsetY:Number = FP.height/2;
+		var cameraOffsetY:Number = FP.height/1.5;
 		
 		var cameraSpeed:Number; //SAME AS PLAYER SPEED
 		var cameraSpeedY = 8;
